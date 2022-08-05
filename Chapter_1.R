@@ -21,6 +21,8 @@ candidates <- data.frame(candidates)  # let's make a dataframe from this list
 head(candidates)  # just to check that everything is allright
 
 # redefine candidates, select only the columns that matter, renaming them and calculating the height differences
+# warning : numeric data (height) behaves strangely
+
 candidates <-  data.frame (Year = candidates$Election,
                            Winner = candidates$Winnerin.Electoral.College,
                            Height_W =  as.numeric(as.character(substr(candidates$Height.1,1,3))),
@@ -28,16 +30,19 @@ candidates <-  data.frame (Year = candidates$Election,
                            Height_L = as.numeric(as.character(substr(candidates$Height.3,1,3))),
                            Difference = as.numeric(as.character(substr(candidates$Height.1,1,3))) - as.numeric(as.character(substr(candidates$Height.3,1,3))), stringsAsFactors = FALSE)
 
-typeof(as.numeric(candidates$Year))
-as.numeric(candidates$Year) > 0
-
 head (candidates) # cool! it works
 
-mean(candidates$Height_W)
+# making a sub_ dataframe with 1900 only elections (aka cheating)
+candidates_1900 <- candidates %>% 
+  filter (!is.na(Difference) & as.numeric(Year) >= 1900)
 
-candidates %>%
-  filter (!is.na(Difference) & as.numeric(Year) >= 1900) %>%
-    mutate (pos_Difference = Difference >=0) %>%
+candidates_1900 %>%
+    mutate (pos_Difference = Difference >=0) %>%                                                  # to have the option to color the bar according to winner\loser
       ggplot (aes (x = Year, y = Difference, fill = pos_Difference)) +
       geom_bar(stat = "identity") +
-      theme(axis.text.x=element_text(angle=90, hjust=1))
+      geom_text (aes(label = Winner), colour = "black", size = 3, angle = 270, hjust = 0) +       # adding label with winner
+      theme(axis.text.x=element_text(angle=90, hjust=1), legend.position = "")                    # flipping x axis and removing legend
+
+  
+taller.won <- candidates_1900$Height_W > candidates_1900$Height_L
+table(taller.won)
