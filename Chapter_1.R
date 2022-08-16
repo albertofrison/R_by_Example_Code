@@ -113,4 +113,37 @@ beta (2,2) #0.1666667
 # the plot of the curve (for a = 2, b = 2) can be obtained by
 curve (x*(1-x), from = 0, to = 1, ylab = "f(x)") # need to study more math...
 
-?curve
+#####
+# Example 1.8
+# Social Class mobility and matrices to investigate the Class of a Child depending on the Class of his/her parents.
+# Parents class are in the ROWS, the columns represent the probability of a child to transit to another class
+
+probs <- c(.45,.05,.01,.48,.70,.50,.07,.25,.49)
+P <- matrix (probs, nrow = 3, ncol = 3)
+
+rownames(P) <- colnames(P) <- c("lower", "middle", "upper")
+P # basically is easier to go up a class (or stay in that class) than to go down
+
+rowSums(P) # sums the probability distribution by row, obtaining 1 in each ROW
+apply (P, MARGIN =1, FUN=sum) # the same result can be obtained by using the apply function to P, specifiyng MARGING = 1 to tell that we are supplying the ROWS and the FUN=sum function
+
+#what happens the next generation? P2 = P^2 = PP
+P2 <- P %*% P # %*% matrix multiplication operator
+P4 <- P2 %*% P2
+P8 <- P4 %*% P4
+P16 <- P8 %*% P8
+P32 <- P16 %*% P16
+P64 <- P32 %*% P32
+P128 <- P64 %*% P64
+
+#####
+# Example 1.9
+# US Arrests, a record of violent crimes arrests in the US - data per 100k residents for assault, murder, rape in the 50 States in 1973 - plus % of population living in urban areas. Used to learn about Data Frames
+head(USArrests)
+dim (USArrests) # dim tells you the number of rows and columns in the...
+class(USArrests) # ...data frame
+
+str(USArrests) # str gives you the dimension information as well as the type of data included in each column
+any(is.na(USArrests)) # it makes sense to see if there is any NAs in the data frame
+
+summary (USArrests) # 
