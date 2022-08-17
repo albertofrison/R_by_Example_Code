@@ -181,7 +181,7 @@ detach(USArrests) # to detach
 #####
 # Example 1.13
 # The url here below contains the first 5000 digits of PI - skip the first 60 rows to avoid to load
-# we will use this dataset to calculate whether these 5000 digits are uniformely distributed
+# we will use this dataset to calculate whether these 5000 digits are uniformly distributed
 
 url <- "https://www.itl.nist.gov/div898/strd/univ/data/PiDigits.dat"
 pidigits <- read.table (url, skip = 60)
@@ -201,3 +201,8 @@ round (rbind (pipropotions, se.hat, pipropotions - 2 * se.hat, pipropotions + 2 
 
 barplot(pipropotions, xlab="Digit", ylab = "Proportion")
 abline(h  = 0.1) 
+
+mean(pidigits$V1)
+sd(pidigits$V1)
+acf(pidigits$V1)
+
