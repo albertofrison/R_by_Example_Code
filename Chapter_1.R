@@ -177,3 +177,27 @@ cor (USArrests)
 # d) also Rapes and Assaults have a strong correlation 0.66
 
 detach(USArrests) # to detach
+
+#####
+# Example 1.13
+# The url here below contains the first 5000 digits of PI - skip the first 60 rows to avoid to load
+# we will use this dataset to calculate whether these 5000 digits are uniformely distributed
+
+url <- "https://www.itl.nist.gov/div898/strd/univ/data/PiDigits.dat"
+pidigits <- read.table (url, skip = 60)
+
+table (pidigits)
+pipropotions <- table (pidigits)/nrow(pidigits) # proportions are easier to read
+class(pipropotions)
+
+# the variance of a proportion is p * (1 - p) / n  - if the true proportions is 0.1 for each digit then the Standard Error se is:
+sqrt(0.1 * 0.9 / 5000)
+
+# since we are using the sample estimates of the proportions - substituting to 0.1 and 0.9 by the data in piproportions (a vector of 10, instead than a scalar)
+# we can display the sample proportions plus / minus 2 standard errors
+
+se.hat <- sqrt(pipropotions * (1 - pipropotions)/5000)
+round (rbind (pipropotions, se.hat, pipropotions - 2 * se.hat, pipropotions + 2 * se.hat), 4) 
+
+barplot(pipropotions, xlab="Digit", ylab = "Proportion")
+abline(h  = 0.1) 
