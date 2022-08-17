@@ -146,4 +146,34 @@ class(USArrests) # ...data frame
 str(USArrests) # str gives you the dimension information as well as the type of data included in each column
 any(is.na(USArrests)) # it makes sense to see if there is any NAs in the data frame
 
-summary (USArrests) # 
+summary (USArrests) # There are no missing values. Median and Mean look similar across crimes except for Assault for which the Mean is larger than the Median indicating that data is positively skewed.
+
+US_Assaults <- USArrests$Assault
+hist (US_Assaults)
+
+library(MASS) # needed to use truehist function
+truehist(US_Assaults) # truehist makes easier to observe the skewed data
+?truehist
+
+hist (US_Assaults, probability = TRUE, breaks = "scott") # these parameters make hist look very similar to truehist
+
+attach(USArrests) # makes easier to reference data frame variables and improves readability of the code
+# with (USArrests, expr = {rape.pct = 100 * Rape / (Murder + Assault + Rape)}) # not 100% sure on how to use the with function
+
+plot (UrbanPop, Murder) # plots a scatterplot Murder VS UrbanPop
+pairs(USArrests) # plots a scatterplot for each pair of variables available within the data frame
+# it looks that we have:
+# a) a positive association between Murders and Assaults
+# b) a weak association between Murders and Urban Population %
+# c) a positive association between Rapes and Urban Population %
+# we can investigate this further by calculating the COORELATION
+
+cor (UrbanPop, Murder) # evaluates the correlation of a pair of variables
+cor (USArrests)
+# the analysis of the results tell us that:
+# a) yes there is indeed a high correlation between Murders and Assaults 0.80
+# b) a weak correlation betweeb Murders and Urban Population & 0.69
+# c) a correlation between Rapes and Urban Population %  0.41
+# d) also Rapes and Assaults have a strong correlation 0.66
+
+detach(USArrests) # to detach
