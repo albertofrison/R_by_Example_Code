@@ -206,3 +206,49 @@ mean(pidigits$V1)
 sd(pidigits$V1)
 acf(pidigits$V1)
 
+#####
+# Exercises Section
+# Ex 1,1
+qnorm(0.90)
+
+qnorm (c(1/4, 2/4, 3/4)) == qnorm(c(0.25, 0.5, 0.75))
+
+a <- rnorm (100000)
+mean (a)
+sd(a)
+plot (a)
+truehist (a)
+
+
+n.std <- function (x, mu=0, sd=1) {
+  (1 / (sd * sqrt(2*pi))) *  exp ((-1/2 * ((x - mu)/sd )^2))
+}
+
+b <- seq(-4,4, by = 0.05)
+
+c <- n.std(b)
+
+plot(c)
+
+# Ex 1.2
+curve(dchisq(x,1),from = 0, to = 1)
+
+# Ex 1.3
+?dgamma
+curve(dgamma(x,shape= 1, rate = 1), add = TRUE)
+curve(dgamma(x,shape= 1, rate = 2), add = TRUE)
+curve(dgamma(x,shape= 1, rate = 3), add = TRUE)
+
+# Ex 1.4
+k = 0:12
+n = 12
+p = 1/6 # and not 1/3
+P_x1 = choose(n,k)*p^k*(1-p)^(n-k)
+P_x2 = dbinom(k,n,p)
+plot(k, P_x1)
+plot(k, P_x2)
+
+# test
+1 - (5/6)^12
+P_x2 = dbinom(0,n,p)
+1-dbinom(0,n,p)
