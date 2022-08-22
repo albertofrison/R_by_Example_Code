@@ -208,7 +208,7 @@ acf(pidigits$V1)
 
 #####
 # Exercises Section
-# Ex 1,1
+# Ex 1,1 - Normal Percentiles
 qnorm(0.90)
 
 qnorm (c(1/4, 2/4, 3/4)) == qnorm(c(0.25, 0.5, 0.75))
@@ -230,16 +230,16 @@ c <- n.std(b)
 
 plot(c)
 
-# Ex 1.2
+# Ex 1.2 - Chi-squared density curve
 curve(dchisq(x,1),from = 0, to = 1)
 
-# Ex 1.3
+# Ex 1.3 - Gamma Densities
 ?dgamma
 curve(dgamma(x,shape= 1, rate = 1), add = TRUE)
 curve(dgamma(x,shape= 1, rate = 2), add = TRUE)
 curve(dgamma(x,shape= 1, rate = 3), add = TRUE)
 
-# Ex 1.4
+# Ex 1.4 - Binomial Probabilities
 k = 0:12 # from 0 ones to 12 ones
 n = 12 # number of trials
 p = 1/6 # probability to get a one in a single trow and not 1/3
@@ -254,15 +254,15 @@ plot(k, P_x2)
 P_x2 = dbinom(0,n,p)
 1-dbinom(0,n,p)
 
-# Ex 1.5
+# Ex 1.5 - Binomial CDF
 plot(cumsum(P_x1), x  = k)
 1 - pbinom(7,n,p)
 1 - pbinom(k,n,p)[8]
 
-# Ex 1.6
+# Ex 1.6 - Presidents' Heighs Scatter Plot
 plot (candidates$Height_L, candidates$Height_W)
 
-# Ex 1.7
+# Ex 1.7 - Simulated "horsekicks data" - Poisson
 n <- 10000
 lambda <- 0.61
 
@@ -279,13 +279,13 @@ theoretical_p <- dpois (0:6, lambda)
 cbind (round(theoretical_p,5),sample_p)
 ?cbind
 
-# Ex 1.8
+# Ex 1.8 - continued...
 prob <- c(0:6)
 theor_CDF <-  ppois(c(0:6), lambda = lambda)
 emp_CDF <- cumsum(sample_p)
 cbind(prob, theor_CDF, emp_CDF)
 
-# Ex 1.9
+# Ex 1.9 -  Custom Standard Deviation Function
 temps <- c(51.9, 51.8, 51.9, 53)
 sd.n <-  function (x) {
   sd.x <- sd(x)
@@ -296,3 +296,22 @@ sd.n <-  function (x) {
 sd(temps)
 sd.n(temps)
 
+# Ex 1.10 - Euclidean Norm Function
+norm <-  function (x) {
+  return (sqrt (sum (x^2)))
+}
+
+v1 <- c(0,0,0,1)
+v2 <- c(2,5,2,4)
+
+norm(v1)
+
+# Ex 1.11 - Integration of Function
+fct <- function (x) {
+  return( exp (-(x^2)) / (1+x^2))
+}
+
+curve (fct, from = 0, to = 10)
+integrate (fct, lower = 0, upper = Inf)
+
+# Ex
