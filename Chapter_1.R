@@ -240,9 +240,10 @@ curve(dgamma(x,shape= 1, rate = 2), add = TRUE)
 curve(dgamma(x,shape= 1, rate = 3), add = TRUE)
 
 # Ex 1.4
-k = 0:12
-n = 12
-p = 1/6 # and not 1/3
+k = 0:12 # from 0 ones to 12 ones
+n = 12 # number of trials
+p = 1/6 # probability to get a one in a single trow and not 1/3
+q = 1-p
 P_x1 = choose(n,k)*p^k*(1-p)^(n-k)
 P_x2 = dbinom(k,n,p)
 plot(k, P_x1)
@@ -252,3 +253,28 @@ plot(k, P_x2)
 1 - (5/6)^12
 P_x2 = dbinom(0,n,p)
 1-dbinom(0,n,p)
+
+# Ex 1.5
+plot(cumsum(P_x1), x  = k)
+1 - pbinom(7,n,p)
+1 - pbinom(k,n,p)[8]
+
+# Ex 1.6
+plot (candidates$Height_L, candidates$Height_W)
+
+# Ex 1.7
+n <- 10000
+lambda <- 0.61
+
+r_P1 <- rpois(n = n, lambda = lambda)
+
+mean(r_P1)
+var(r_P1)
+sample <- table(r_P1)
+sample_p <- sample / n
+sample_p
+
+#comparing with theoretical
+theoretical_p <- dpois (0:6, lambda)
+cbind (round(theoretical_p,5),sample_p)
+?cbind
