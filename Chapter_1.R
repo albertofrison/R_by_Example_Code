@@ -278,3 +278,21 @@ sample_p
 theoretical_p <- dpois (0:6, lambda)
 cbind (round(theoretical_p,5),sample_p)
 ?cbind
+
+# Ex 1.8
+prob <- c(0:6)
+theor_CDF <-  ppois(c(0:6), lambda = lambda)
+emp_CDF <- cumsum(sample_p)
+cbind(prob, theor_CDF, emp_CDF)
+
+# Ex 1.9
+temps <- c(51.9, 51.8, 51.9, 53)
+sd.n <-  function (x) {
+  sd.x <- sd(x)
+  n  <-NROW (x)
+  return (sd.x*(n-1)/n)
+}
+
+sd(temps)
+sd.n(temps)
+
